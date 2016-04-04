@@ -40,7 +40,8 @@ public class ClientMain {
 //        }
         System.out.print("#####");
         String ip = "192.168.1.65";
-        String port = "2000";
+        int aux = random.nextInt((100000 - 49152)+1)+49152;
+        String port = "aux"+"";
         Socket clientSocket = new Socket(ip, 2000);
 
         byte[] pdu = new PDU().registar(port, ip);

@@ -21,7 +21,7 @@ public class Client {
 
     private Socket clientSck;
     private BufferedReader in;
-    private PrintWriter out;
+    private OutputStream out;
     private byte[] pdu;
     
     public Client(int porta, String ip) throws IOException {
@@ -30,7 +30,7 @@ public class Client {
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
-        out = new PrintWriter(clientSck.getOutputStream(), true);
+        out = clientSck.getOutputStream();
         in = new BufferedReader(new InputStreamReader(clientSck.getInputStream()));
     }
 
@@ -78,15 +78,13 @@ public class Client {
     public boolean register(String name, String pass, String ip) throws myException, IOException {
         String sResposta = "";
         pdu = new PDU().registar(name,pass,ip);
-        OutputStream out = clientSck.getOutputStream();
         out.write(pdu);
-        /*try {
+        try {
             sResposta = in.readLine();
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
         } finally {
             return response(sResposta);
-        }*/
-        return true;
+        }
     }
 }

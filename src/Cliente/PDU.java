@@ -17,6 +17,7 @@ import java.nio.ByteBuffer;
 public class PDU {
 
     public PDU() {
+        
     }
 
     public byte[] registar(String name, String pass, String ip) {

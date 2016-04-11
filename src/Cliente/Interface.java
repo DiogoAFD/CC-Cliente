@@ -1,5 +1,7 @@
 package Cliente;
 
+import java.io.IOException;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,7 +25,7 @@ public class Interface {
         this.c = c;
     }
 
-    public void start() {
+    public void start() throws IOException {
         carregarMenus();
 
         do {
@@ -65,9 +67,8 @@ public class Interface {
         return 1;
     }
     
-    protected void register() {
+    protected void register() throws IOException {
 
-        String pass;
         boolean register = false;
 
         try {

@@ -16,28 +16,30 @@ import java.net.Socket;
 public class ClientMain {
 
     public static void main(String[] args) throws IOException {
-
-//        if (args.length < 2) {
-//            port = 2000;//2000 por omissao
-//            ip = "localhost";
-//            System.out.println("Atribuída porta 2000 no localhost.");
-//        } else {
-//            ip = args[1];
-//            try {
-//                port = Integer.parseInt(args[0]);
-//            } catch (NumberFormatException e) {
-//                System.err.println("Erro a ler a porta. Atribuída porta 2000.");
-//                port = 2000;
-//            }
-//        }
-//        try {
-//            Client u = new Client(ip,port);
-//            Interface ui = new Interface(u);
-//            ui.start();
-//            u.close();
-//        } catch (IOException e) {
-//            System.err.println(e.getMessage());
-//        }
+        int port;
+        String ip;
+        if (args.length < 2) {
+            port = 2000;//2000 por omissao
+            ip = "localhost";
+            System.out.println("Atribuída porta 2000 no localhost.");
+        } else {
+            ip = args[1];
+            try {
+                port = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.err.println("Erro a ler a porta. Atribuída porta 2000.");
+                port = 2000;
+            }
+        }
+        try {
+            Client u = new Client(port,ip);
+            Interface ui = new Interface(u);
+            ui.start();
+            u.close();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        /*
         System.out.print("#####");
         String ip = "192.168.1.65";
         String port = "2000";
@@ -46,7 +48,7 @@ public class ClientMain {
         byte[] pdu = new PDU().registar(port, ip);
 
         OutputStream out = clientSocket.getOutputStream();
-        out.write(pdu);
+        out.write(pdu);*/
 
     }
 }

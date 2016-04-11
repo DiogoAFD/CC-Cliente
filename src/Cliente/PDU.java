@@ -5,21 +5,28 @@
  */
 package Cliente;
 
+import static java.lang.Math.random;
+import java.util.Random;
 import java.nio.ByteBuffer;
 
 /**
  *
  * @author Miguel
  */
+
 public class PDU {
 
     public PDU() {
     }
 
-    public byte[] registar(String porta, String ip) {
-
+    public byte[] registar(String name, String pass, String ip) {
         ByteBuffer bb;
-        String aux = porta + ',' + ip;
+        int port;
+        Random random = new Random();
+        
+        port = random.nextInt((100000-49152)+1)+49152;
+        
+        String aux = name + ',' + pass + ',' + ip + ',' + port;
         byte[] k = aux.getBytes();
         int tam = 9 + k.length;
         byte[] ret = new byte[tam];

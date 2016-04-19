@@ -20,7 +20,7 @@ public class PDU {
         
     }
 
-    public byte[] registar(String name, String pass, String ip) {
+    public byte[] registar(String name, String pass, String ip, byte[]ret) {
         ByteBuffer bb;
         int port;
         Random random = new Random();
@@ -30,7 +30,7 @@ public class PDU {
         String aux = name + ',' + pass + ',' + ip + ',' + port;
         byte[] k = aux.getBytes();
         int tam = 9 + k.length;
-        byte[] ret = new byte[tam];
+        ret = new byte[tam];
         byte[] aux2 = new byte[7];
 
         bb = ByteBuffer.wrap(ret);

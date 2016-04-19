@@ -78,9 +78,12 @@ public class Client {
     }
     
     public boolean register(String name, String pass, String ip) throws myException, IOException {
+        byte[] pduAux = null;
         String sResposta = "";
-        pdu.registar(name,pass,ip);
-        //out.write(pdu);
+        System.out.println("cheguei12");
+        pdu.registar(name,pass,ip,pduAux);
+        System.out.println("cheguei13");
+        out.write(pduAux);
         try {
             sResposta = in.readLine();
         } catch (IOException ex) {

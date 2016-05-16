@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.Socket;
 
 /**
@@ -23,10 +25,12 @@ public class Client {
     private BufferedReader in;
     private PrintWriter out;
     private byte[] pdu;
+    private DatagramSocket udp = null;
     
     public Client(int porta, String ip) throws IOException {
         try {
             clientSck = new Socket(ip, porta);
+            udp= new DatagramSocket(porta);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
@@ -88,5 +92,13 @@ public class Client {
             return response(sResposta);
         }*/
         return true;
+    }
+    
+    public void enviarFicheiro(int portdest) throws IOException{
+        
+        
+        byte [] ficheiro= new byte[1000]; // vai ser substituido por uma funçao que faz a conversao
+        DatagramPacket enviar= new DatagramPacket(ficheiro,ficheiro.length);
+        udp.send(enviar);
     }
 }

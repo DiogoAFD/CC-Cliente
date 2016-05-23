@@ -13,6 +13,7 @@ import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -92,6 +93,36 @@ public class Client {
             return response(sResposta);
         }*/
         return true;
+    }
+    
+    /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
+    a conexão com todos os ips e ver qual é mais rapido
+    */
+    public ArrayList<String> pedirFile(String nome, String banda, String extensao) throws myException, IOException{
+        
+        ArrayList<String> aux= new ArrayList<>(); 
+        
+       pdu=new PDU().pedirFicheiro(nome, banda, extensao);
+       OutputStream out = clientSck.getOutputStream();
+       out.write(pdu);
+       
+       // vai receber ip a ip e adicionar ao arraylist
+    
+       return aux;
+    }
+    
+    public void responderPedido(String resposta,String ip) throws IOException{
+        pdu=new PDU().responderPedido(resposta);
+        OutputStream out = clientSck.getOutputStream();
+        if(resposta.equals("S")){
+            out.write(pdu);
+            byte[] aux = ip.getBytes(); // envia o ip que sera adicionado ao arraylist 
+            out.write(aux);
+        }
+        if(resposta.equals("N")){
+            out.write(pdu);
+        }
+    
     }
     
     public void enviarFicheiro(int portdest) throws IOException{

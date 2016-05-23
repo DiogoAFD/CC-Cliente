@@ -47,4 +47,53 @@ public class PDU {
         bb.put(k);
         return ret;
     }
+    
+    public byte[] pedirFicheiro(String nomeMusica, String banda, String extensao){
+        ByteBuffer bb;
+        
+        String aux = nomeMusica + ',' + banda + ',' + extensao;
+        byte[] k = aux.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+        
+        aux2[0] = 1; // bit por defeito
+        aux2[1] = 0;
+        aux2[2] = 2; // Consult_Request
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+
+        bb.put(aux2);
+        bb.put(k);
+        return ret;
+        
+    }
+    
+    public byte[] responderPedido(String resposta){
+      ByteBuffer bb;
+        
+        
+        byte[] k = resposta.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+        
+        aux2[0] = 1; // bit por defeito
+        aux2[1] = 0;
+        aux2[2] = 3; // Consult_Responde
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+
+        bb.put(aux2);
+        bb.put(k);
+        return ret;
+    }
 }

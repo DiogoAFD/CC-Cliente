@@ -73,11 +73,14 @@ public class PDU {
         
     }
     
-    public byte[] responderPedido(String resposta){
+    // 0 ou 1
+    public byte[] responderPedido(int resposta, String id, String ip, int portaUDP){
       ByteBuffer bb;
         
-        
-        byte[] k = resposta.getBytes();
+        String resp= Integer.toString(resposta);
+        String porta= Integer.toString(portaUDP);
+        String result = resp+',' +id+',' +ip+','+porta;
+        byte[] k = result.getBytes();
         int tam = 9 + k.length;
         byte[] ret = new byte[tam];
         byte[] aux2 = new byte[7];

@@ -25,9 +25,14 @@ public class Client {
     private Socket clientSck;
     private BufferedReader in;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private PrintWriter out;
     private byte[] pdu;
     private DatagramSocket udp = null;
+=======
+    private OutputStream out;
+    private PDU pdu;
+>>>>>>> origin/master
 =======
     private OutputStream out;
     private PDU pdu;
@@ -101,6 +106,7 @@ public class Client {
         } finally {
             return response(sResposta);
         }
+<<<<<<< HEAD
     }
     
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
@@ -139,5 +145,7 @@ public class Client {
         byte [] ficheiro= new byte[1000]; // vai ser substituido por uma funçao que faz a conversao
         DatagramPacket enviar= new DatagramPacket(ficheiro,ficheiro.length);
         udp.send(enviar);
+=======
+>>>>>>> origin/master
     }
 }

@@ -24,9 +24,14 @@ public class Client {
 
     private Socket clientSck;
     private BufferedReader in;
+<<<<<<< HEAD
     private PrintWriter out;
     private byte[] pdu;
     private DatagramSocket udp = null;
+=======
+    private OutputStream out;
+    private PDU pdu;
+>>>>>>> origin/master
     
     public Client(int porta, String ip) throws IOException {
         try {
@@ -35,7 +40,7 @@ public class Client {
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
-        out = new PrintWriter(clientSck.getOutputStream(), true);
+        out = clientSck.getOutputStream();
         in = new BufferedReader(new InputStreamReader(clientSck.getInputStream()));
     }
 
@@ -53,27 +58,29 @@ public class Client {
     
     public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);
-        char codigo = str[2].charAt(0);
+        //char codigo = str[2].charAt(0);
+        String codigo = str[0];
+        System.out.println("codigo"+str[0]);
         boolean resposta = false;
-        switch (codigo) {
-            case '1':
-                resposta = responseRegister(str[3]);
+        switch(codigo){
+            case "1":
+                resposta = responseRegister(str);
                 break;
-
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
         return resposta;
     }
 
-    private boolean responseRegister(String mensagem) throws myException {
+    private boolean responseRegister(String[] mensagem) throws myException {
         boolean resposta = false;
-        switch (mensagem) {
+        
+        switch (mensagem[1]) {
             case "ok":
                 resposta = true;
                 break;
-            case "user ja existe":
-                throw new myException("Não foi possivel efectuar o registo. Username já existente");
+            case "ip ja existe":
+                throw new myException("Não foi possivel efectuar o registo. IP já existente");
             default:
                 throw new myException("Não foi possível efectuar a operação. Tente Novamente");
         }
@@ -81,18 +88,19 @@ public class Client {
     }
     
     public boolean register(String name, String pass, String ip) throws myException, IOException {
+        byte[] pduAux = null;
         String sResposta = "";
-        pdu = new PDU().registar(name,pass,ip);
-        OutputStream out = clientSck.getOutputStream();
-        out.write(pdu);
-        /*try {
+        System.out.println("cheguei12");
+        pdu.registar(name,pass,ip,pduAux);
+        System.out.println("cheguei13");
+        out.write(pduAux);
+        try {
             sResposta = in.readLine();
         } catch (IOException ex) {
             throw new myException("Não foi possível obter resposta do servidor");
         } finally {
             return response(sResposta);
-        }*/
-        return true;
+        }
     }
     
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 

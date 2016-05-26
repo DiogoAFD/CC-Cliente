@@ -24,24 +24,12 @@ public class Client {
 
     private Socket clientSck;
     private BufferedReader in;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    private PrintWriter out;
+    //private PrintWriter out;
     private byte[] pdu;
     private DatagramSocket udp = null;
-=======
     private OutputStream out;
-    private PDU pdu;
->>>>>>> origin/master
-=======
-    private OutputStream out;
-    private PDU pdu;
->>>>>>> origin/master
-=======
-    private OutputStream out;
-    private PDU pdu;
->>>>>>> origin/master
+    private PDU pdu2;
+
     
     public Client(int porta, String ip) throws IOException {
         try {
@@ -101,7 +89,7 @@ public class Client {
         byte[] pduAux = null;
         String sResposta = "";
         System.out.println("cheguei12");
-        pdu.registar(name,pass,ip,pduAux);
+        pdu2.registar(name,pass,ip,pduAux);
         System.out.println("cheguei13");
         out.write(pduAux);
         try {
@@ -111,8 +99,6 @@ public class Client {
         } finally {
             return response(sResposta);
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
     }
     
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
@@ -130,9 +116,9 @@ public class Client {
     
        return aux;
     }
-    
+    /*
     public void responderPedido(String resposta,String ip) throws IOException{
-        pdu=new PDU().responderPedido(resposta);
+        pdu=new PDU().responderPedido(resposta); // no responderpedido temos de passar mais argumentos
         OutputStream out = clientSck.getOutputStream();
         if(resposta.equals("S")){
             out.write(pdu);
@@ -143,7 +129,7 @@ public class Client {
             out.write(pdu);
         }
     
-    }
+    }*/
     
     public void enviarFicheiro(int portdest) throws IOException{
         
@@ -151,9 +137,5 @@ public class Client {
         byte [] ficheiro= new byte[1000]; // vai ser substituido por uma funçao que faz a conversao
         DatagramPacket enviar= new DatagramPacket(ficheiro,ficheiro.length);
         udp.send(enviar);
-=======
->>>>>>> origin/master
-=======
->>>>>>> origin/master
     }
 }

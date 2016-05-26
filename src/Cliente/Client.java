@@ -104,6 +104,8 @@ public class Client {
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
     a conexão com todos os ips e ver qual é mais rapido
     */
+    
+    //CONSULTREQUEST DO CLIENTE PARA O SERVIDOR
     public ArrayList<String> pedirFile(String nome, String banda, String extensao) throws myException, IOException{
         
         ArrayList<String> aux= new ArrayList<>(); 
@@ -116,6 +118,8 @@ public class Client {
     
        return aux;
     }
+    
+ 
     /*
     public void responderPedido(String resposta,String ip) throws IOException{
         pdu=new PDU().responderPedido(resposta); // no responderpedido temos de passar mais argumentos
@@ -130,6 +134,8 @@ public class Client {
         }
     
     }*/
+    
+    
     
     public void enviarFicheiro(int portdest) throws IOException{
         

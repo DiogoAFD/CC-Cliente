@@ -119,6 +119,8 @@ public class Client {
        return aux;
     }
     
+
+    
  
     /*
     public void responderPedido(String resposta,String ip) throws IOException{

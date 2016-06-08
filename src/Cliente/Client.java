@@ -29,6 +29,7 @@ public class Client {
     private DatagramSocket udp = null;
     private OutputStream out;
     private PDU pdu2;
+    public Input input;
 
     
     public Client(int porta, String ip) throws IOException {
@@ -101,6 +102,23 @@ public class Client {
         }
     }
     
+    public void responderPedido() throws IOException{
+        
+        byte[] pduAux = null;
+        int resposta=0;
+        String Pedido= in.readLine();
+        System.out.println("Um cliente fez o seguinte pedido: "+Pedido);
+        System.out.println("Voce contem esse ficheiro? S ou N");
+        String resp=input.lerString();
+        if(resp.equals("S")||resp.equals("s")) resposta=1;
+        if(resp.equals("N")||resp.equals("n")) resposta=0;
+        
+        
+        
+    
+    
+    }
+    
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
     a conexão com todos os ips e ver qual é mais rapido
     */
@@ -113,6 +131,8 @@ public class Client {
        pdu=new PDU().pedirFicheiro(nome, banda, extensao);
        OutputStream out = clientSck.getOutputStream();
        out.write(pdu);
+       
+       while()
        
        // vai receber ip a ip e adicionar ao arraylist
     

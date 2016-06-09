@@ -32,10 +32,10 @@ public class Client {
     public Input input;
 
     
-    public Client(int porta, String ip) throws IOException {
+    public Client(int portaTCP,int portaUDP, String ip) throws IOException {
         try {
-            clientSck = new Socket(ip, porta);
-            udp= new DatagramSocket(porta);
+            clientSck = new Socket(ip, portaTCP);
+            udp= new DatagramSocket(portaUDP);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
@@ -147,7 +147,7 @@ public class Client {
        OutputStream out = clientSck.getOutputStream();
        out.write(pdu);
        
-       while()
+       
        
        // vai receber ip a ip e adicionar ao arraylist
     

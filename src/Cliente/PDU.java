@@ -16,7 +16,7 @@ import java.nio.ByteBuffer;
 
 public class PDU {
 
-    public PDU() {
+    public PDU(){
         
     }
 

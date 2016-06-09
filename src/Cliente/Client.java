@@ -37,6 +37,7 @@ public class Client {
         try {
             clientSck = new Socket(ip, portaTCP);
             udp= new DatagramSocket(portaUDP);
+            pdu2=new PDU();
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
@@ -137,7 +138,6 @@ public class Client {
     
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
     a conexão com todos os ips e ver qual é mais rapido
-    */
     
     //CONSULTREQUEST DO CLIENTE PARA O SERVIDOR
     public ArrayList<String> pedirFile(String nome, String banda, String extensao,int ident) throws myException, IOException{
@@ -163,7 +163,8 @@ public class Client {
        return aux;
     }
     
-
+*/
+    
     
  
     /*

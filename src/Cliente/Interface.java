@@ -17,7 +17,7 @@ import java.io.IOException;
 public class Interface {
 
     public Menu menuLogReg, menuMain, menuAnunDisp;
-    private String id, ip, pass, nome;
+    private String id, pass, nome;
     private int x, y,port;
     private Client c;
 
@@ -43,8 +43,8 @@ public class Interface {
     
     protected void login() {
 
-        System.out.print("Id: ");
-        id = Input.lerString();
+        System.out.print("Nome: ");
+        nome = Input.lerString();
         System.out.print("Password: ");
         pass = Input.lerString();
         System.out.println("\nLogin realizado com sucesso");
@@ -76,9 +76,7 @@ public class Interface {
             nome = Input.lerString();
             System.out.print("Password: ");
             pass = Input.lerString();
-            System.out.print("Ip: ");
-            ip = Input.lerString();
-            register = c.register(nome, pass, ip);
+            register = c.register(nome, pass);
         } catch (myException s) {
             System.err.println(s.getMessage());
         }

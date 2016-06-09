@@ -6,16 +6,27 @@
 package Cliente;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
+
 
 /**
  *
  * @author Diogo Duarte
  */
 public class ClientMain {
-
+    
     public static void main(String[] args) throws IOException {
+        try {
+            Client u = new Client("localhost");
+            Interface ui = new Interface(u);
+            ui.start();
+            u.close();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+}
+
+    /*public static void main(String[] args) throws IOException {
         int portTCP;
         int portUDP;
         String ip;
@@ -54,6 +65,3 @@ public class ClientMain {
 
         OutputStream out = clientSocket.getOutputStream();
         out.write(pdu);*/
-
-    }
-}

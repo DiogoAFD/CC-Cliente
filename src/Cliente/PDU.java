@@ -5,7 +5,7 @@
  */
 package Cliente;
 
-import static java.lang.Math.random;
+
 import java.util.Random;
 import java.nio.ByteBuffer;
 
@@ -20,21 +20,19 @@ public class PDU {
         
     }
 
-    public byte[] registar(String name, String pass, String ip, byte[]ret) {
+       public byte[] registar(String name, String pass, String ip,int portaUDP) {
         ByteBuffer bb;
-        int port;
-        Random random = new Random();
-        
-        port = random.nextInt((100000-49152)+1)+49152;
-        
-        String aux = name + ',' + pass + ',' + ip + ',' + port;
+
+        String aux = name + ',' + pass + ',' + ip + ',' + portaUDP;
         byte[] k = aux.getBytes();
         int tam = 9 + k.length;
-        ret = new byte[tam];
+        byte[] ret = new byte[tam];
         byte[] aux2 = new byte[7];
 
         bb = ByteBuffer.wrap(ret);
+        
 
+        
         aux2[0] = 1;
         aux2[1] = 0;
         aux2[2] = 1;
@@ -42,11 +40,17 @@ public class PDU {
         aux2[4] = 0;
         aux2[5] = 0;
         aux2[6] = 0;
-
+            
+        
         bb.put(aux2);
+        
+
         bb.put(k);
+        
+
         return ret;
     }
+    
     
     public byte[] pedirFicheiro(String nomeMusica, String banda, String extensao,int ident){
         ByteBuffer bb;
@@ -127,5 +131,12 @@ public class PDU {
       
       }
       
+    }
+    
+    public static int getPort(){
+
+        Random random = new Random();
+        int number = random.nextInt((65534 - 49152) + 1) + 49152;
+        return number;
     }
 }

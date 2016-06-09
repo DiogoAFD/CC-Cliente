@@ -7,10 +7,8 @@ package Cliente;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
@@ -29,14 +27,16 @@ public class Client {
     private byte[] pdu;
     private DatagramSocket udp = null;
     private OutputStream out;
-    private PDU pdu2;
+    private PDU pdu2=new PDU();
     public Input input;
+    public String ipCliente;
+    public int portaUDP = PDU.getPort();
     public Connect cs;
     
     
-    public Client(int portaTCP,int portaUDP, String ip) throws IOException {
+    public Client(String ip) throws IOException {
         try {
-            clientSck = new Socket(ip, portaTCP);
+            clientSck = new Socket(ip, 2000);
             udp= new DatagramSocket(portaUDP);
             pdu2=new PDU();
             cs=new Connect(clientSck);
@@ -90,12 +90,10 @@ public class Client {
         return resposta;
     }
     
-    public boolean register(String name, String pass, String ip) throws myException, IOException {
+    public boolean register(String name, String pass) throws myException, IOException {
         byte[] pduAux = null;
         String sResposta = "";
-        System.out.println("cheguei12");
-        pdu2.registar(name,pass,ip,pduAux);
-        System.out.println("cheguei13");
+        pduAux=pdu2.registar(name,pass,ipCliente,portaUDP);
         out.write(pduAux);
         try {
             sResposta = in.readLine();
@@ -105,6 +103,7 @@ public class Client {
             return response(sResposta);
         }
     }
+    
     
     public void responderPedido(byte[] pdu,int portaUDP,String ip,String id) throws IOException{
         

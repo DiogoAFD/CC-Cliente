@@ -31,13 +31,15 @@ public class Client {
     private OutputStream out;
     private PDU pdu2;
     public Input input;
-
+    public Connect cs;
+    
     
     public Client(int portaTCP,int portaUDP, String ip) throws IOException {
         try {
             clientSck = new Socket(ip, portaTCP);
             udp= new DatagramSocket(portaUDP);
             pdu2=new PDU();
+            cs=new Connect(clientSck);
         } catch (java.net.ConnectException a) {
             throw new IOException("Servidor não disponível");
         }
@@ -137,22 +139,43 @@ public class Client {
     }
     
     /** esta função vai retornar uma lista com os ips dos users que contem esse ficheiro para depois testar 
-    a conexão com todos os ips e ver qual é mais rapido
+    a conexão com todas as portas udps*/
     
     //CONSULTREQUEST DO CLIENTE PARA O SERVIDOR
-    public ArrayList<String> pedirFile(String nome, String banda, String extensao,int ident) throws myException, IOException{
-        
-        ArrayList<String> aux= new ArrayList<>(); 
+    public ArrayList<Integer> pedirFile(String nome, String banda, String extensao,int ident) throws myException, IOException{
+        int i;
+        ArrayList<Integer> aux= new ArrayList<>(); 
         
         byte[] recebe = null;
+        String resp="";
         
        pdu=new PDU().pedirFicheiro(nome, banda, extensao,ident);
        out.write(pdu);
-       InputStream cs= clientSck.getInputStream();
        
        
-       
-       }
+       while((recebe=cs.readPDU())!= null){
+           
+            for (i = 7; (char) recebe[i] != ','; i++) {
+            resp += (char) recebe[i];
+            
+        }
+            if(Integer.getInteger(resp)==1){
+                String ptU ="";
+                for (i++; (char) recebe[i] != ','; i++);
+                for (i++; (char) recebe[i] != ','; i++);
+                
+                for (i++; (char) recebe[i] != '\0'; i++) {
+                    ptU+= (char) recebe[i];
+                }
+                
+                int porta=Integer.getInteger(ptU);
+                
+                aux.add(porta);
+            
+            }
+        
+        
+        }
        
       
        
@@ -163,24 +186,11 @@ public class Client {
        return aux;
     }
     
-*/
+
     
     
  
-    /*
-    public void responderPedido(String resposta,String ip) throws IOException{
-        pdu=new PDU().responderPedido(resposta); // no responderpedido temos de passar mais argumentos
-        OutputStream out = clientSck.getOutputStream();
-        if(resposta.equals("S")){
-            out.write(pdu);
-            byte[] aux = ip.getBytes(); // envia o ip que sera adicionado ao arraylist 
-            out.write(aux);
-        }
-        if(resposta.equals("N")){
-            out.write(pdu);
-        }
-    
-    }*/
+ 
     
     
     

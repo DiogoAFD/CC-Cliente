@@ -7,6 +7,7 @@ package Cliente;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -139,13 +140,21 @@ public class Client {
     */
     
     //CONSULTREQUEST DO CLIENTE PARA O SERVIDOR
-    public ArrayList<String> pedirFile(String nome, String banda, String extensao) throws myException, IOException{
+    public ArrayList<String> pedirFile(String nome, String banda, String extensao,int ident) throws myException, IOException{
         
         ArrayList<String> aux= new ArrayList<>(); 
         
-       pdu=new PDU().pedirFicheiro(nome, banda, extensao);
-       OutputStream out = clientSck.getOutputStream();
+        byte[] recebe = null;
+        
+       pdu=new PDU().pedirFicheiro(nome, banda, extensao,ident);
        out.write(pdu);
+       InputStream cs= clientSck.getInputStream();
+       
+       
+       
+       }
+       
+      
        
        
        

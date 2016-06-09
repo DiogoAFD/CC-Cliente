@@ -48,10 +48,10 @@ public class PDU {
         return ret;
     }
     
-    public byte[] pedirFicheiro(String nomeMusica, String banda, String extensao){
+    public byte[] pedirFicheiro(String nomeMusica, String banda, String extensao,int ident){
         ByteBuffer bb;
-        
-        String aux = nomeMusica + ',' + banda + ',' + extensao;
+        String identificador= Integer.toString(ident);
+        String aux = nomeMusica + ',' + banda + ',' + extensao +','+identificador;
         byte[] k = aux.getBytes();
         int tam = 9 + k.length;
         byte[] ret = new byte[tam];

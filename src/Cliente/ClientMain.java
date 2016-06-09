@@ -16,23 +16,27 @@ import java.net.Socket;
 public class ClientMain {
 
     public static void main(String[] args) throws IOException {
-        int port;
+        int portTCP;
+        int portUDP;
         String ip;
         if (args.length < 2) {
-            port = 2000;//2000 por omissao
+            portTCP = 2000;//2000 por omissao
+            portUDP=2001;
             ip = "localhost";
             System.out.println("Atribuída porta 2000 no localhost.");
         } else {
-            ip = args[1];
+            ip = args[2];
             try {
-                port = Integer.parseInt(args[0]);
+                portTCP = Integer.parseInt(args[0]);
+                portUDP = Integer.parseInt(args[1]);
             } catch (NumberFormatException e) {
                 System.err.println("Erro a ler a porta. Atribuída porta 2000.");
-                port = 2000;
+                portTCP = 2000;
+                portUDP=2001;
             }
         }
         try {
-            Client u = new Client(port,ip);
+            Client u = new Client(portTCP,portUDP,ip);
             Interface ui = new Interface(u);
             ui.start();
             u.close();

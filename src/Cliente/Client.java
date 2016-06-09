@@ -102,16 +102,31 @@ public class Client {
         }
     }
     
-    public void responderPedido() throws IOException{
+    public void responderPedido(byte[] pdu,int portaUDP,String ip,String id) throws IOException{
         
         byte[] pduAux = null;
+        int i;
+        String nomeMusica = "", banda = "", extensao="";
+        
+          for (i = 7; (char) pdu[i] != ','; i++) {
+            nomeMusica += (char) pdu[i];
+        }
+        // faz i++ ao inicio para avancar o ,
+        for (i++; (char) pdu[i] != ','; i++) {
+            banda += (char) pdu[i];
+        }
+        for (i++; (char) pdu[i] != '\0'; i++) {
+            extensao += (char) pdu[i];
+        }
+        
+        String pedido =new String(nomeMusica+","+banda+","+extensao);
         int resposta=0;
-        String Pedido= in.readLine();
-        System.out.println("Um cliente fez o seguinte pedido: "+Pedido);
+        
+        System.out.println("Um cliente fez o seguinte pedido: "+pedido);
         System.out.println("Voce contem esse ficheiro? S ou N");
         String resp=input.lerString();
-        if(resp.equals("S")||resp.equals("s")) resposta=1;
-        if(resp.equals("N")||resp.equals("n")) resposta=0;
+        if(resp.equals("S")||resp.equals("s")) {resposta=1; pduAux=pdu2.responderPedido(resposta, id, ip, portaUDP);}
+        if(resp.equals("N")||resp.equals("n")) {resposta=0;  pduAux=pdu2.responderPedido(resposta, id, ip, portaUDP);}
         
         
         

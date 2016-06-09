@@ -76,6 +76,8 @@ public class PDU {
     // 0 ou 1
     public byte[] responderPedido(int resposta, String id, String ip, int portaUDP){
       ByteBuffer bb;
+      
+      if(resposta==1){
         
         String resp= Integer.toString(resposta);
         String porta= Integer.toString(portaUDP);
@@ -98,5 +100,32 @@ public class PDU {
         bb.put(aux2);
         bb.put(k);
         return ret;
+      }
+      else{
+          
+           String resp= Integer.toString(resposta);
+        
+        
+        byte[] k = resp.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+        
+        aux2[0] = 1; // bit por defeito
+        aux2[1] = 0;
+        aux2[2] = 3; // Consult_Responde
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+
+        bb.put(aux2);
+        bb.put(k);
+        return ret;
+      
+      }
+      
     }
 }

@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 /**
@@ -178,11 +179,32 @@ public class Client {
        
       
        
-       
-       
-       
-    
        return aux;
+    }
+    
+    public int melhorConexao(ArrayList<Integer> portas) throws SocketException, IOException{
+    
+           int melhorPorta=0;
+           
+           for(Integer i:portas){
+           //Crio o socket para testar conexao
+           DatagramSocket aux = new DatagramSocket(i);
+           
+           while(true){
+
+                byte[] buffer = new byte[256];
+                
+                System.out.println("À espera...");
+                
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                aux.receive(packet);
+                
+                byte[] receive = packet.getData();
+           
+           }
+    
+    
+    
     }
     
 

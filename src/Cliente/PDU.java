@@ -133,6 +133,33 @@ public class PDU {
       
     }
     
+    public byte[] testeConexao(long tempo){
+        
+        ByteBuffer bb;
+        String info = String.valueOf(tempo) + '\0';
+
+        byte[] k = info.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+
+        aux2[0] = 1;
+        aux2[1] = 0;
+        aux2[2] = 5;
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+
+        bb.put(aux2);
+        bb.put(k);
+        return ret;
+    }
+    
+    
+    
     public static int getPort(){
 
         Random random = new Random();

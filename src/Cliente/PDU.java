@@ -6,6 +6,9 @@
 package Cliente;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Random;
 import java.nio.ByteBuffer;
 
@@ -156,6 +159,33 @@ public class PDU {
         bb.put(aux2);
         bb.put(k);
         return ret;
+    }
+    
+    public byte[] trataFicheiro(String ficheiro) throws IOException{
+        
+        ByteBuffer bb;
+        File initialFile = new File(ficheiro);
+        FileInputStream targetStream = new FileInputStream(initialFile);
+        int filesize=targetStream.available();
+        
+         byte [] data= new byte[filesize+7];
+         
+         data[0]=1;
+         data[1]=0;
+         data[2]=7;
+         //opçoes UDP
+         data[3] = 0;
+         data[4] = 0;
+         data[5] = 0;
+         data[6] = 0;
+         
+         for(int i=7;i<filesize+7;i++){
+         
+         data[i]=(byte)targetStream.read();
+         }
+        
+        return data;
+    
     }
     
     

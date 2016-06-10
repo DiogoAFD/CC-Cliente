@@ -206,20 +206,11 @@ public class Client {
     
     
     }
+    }
     
-
-    
-    
- 
- 
-    
-    
-    
-    public void enviarFicheiro(int portdest) throws IOException{
+    public void enviarFicheiro(int portdest, String filename) throws IOException{
         
         
-        byte [] ficheiro= new byte[1000]; // vai ser substituido por uma funçao que faz a conversao
-        DatagramPacket enviar= new DatagramPacket(ficheiro,ficheiro.length);
-        udp.send(enviar);
+       
     }
 }

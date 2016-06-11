@@ -192,7 +192,30 @@ public class PDU {
     }
     
     //porta udp vai ser envia para o cliente que vai enviar para este poder enviar para a respetiva porta
-    public byte[] pedirEnvio(int portaUDP){
+    public byte[] pedirEnvio(String nomeMusica, String banda, String extensao,int portaUDP){
+        
+            ByteBuffer bb;
+        String info = nomeMusica+","+banda+","+extensao+","+String.valueOf(portaUDP);
+
+        byte[] k = info.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+
+        aux2[0] = 1;
+        aux2[1] = 0;
+        aux2[2] = 6;
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+
+        bb.put(aux2);
+        bb.put(k);
+        return ret;
+    
     
     
     }

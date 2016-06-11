@@ -169,6 +169,8 @@ public class Client {
        pdu=new PDU().pedirFicheiro(nome, banda, extensao,ident);
        out.write(pdu);
        
+       System.out.println("Aguarde por favor! Estamos a procura... :)");
+       
        // vai receber ip a ip e adicionar ao arraylist
        while((recebe=cs.readPDU())!= null){
            

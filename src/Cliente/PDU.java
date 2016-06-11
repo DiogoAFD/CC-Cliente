@@ -161,6 +161,7 @@ public class PDU {
         return ret;
     }
     
+    // recebe o path para o ficheiro
     public byte[] trataFicheiro(String ficheiro) throws IOException{
         
         ByteBuffer bb;

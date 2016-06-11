@@ -6,6 +6,8 @@
 package Cliente;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -181,7 +183,7 @@ public class Client {
        
        return aux;
     }
-    
+    /*
     public int melhorConexao(ArrayList<Integer> portas) throws SocketException, IOException{
     
            int melhorPorta=0;
@@ -207,6 +209,7 @@ public class Client {
     
     }
     }
+*/
     
     public void enviarFicheiro(int portdest, String filename) throws IOException{
         
@@ -221,7 +224,36 @@ public class Client {
        
     }
     
-    public void receberFicheiro(int portaEnvio, String filename, int sizeFile){
+    public void receberFicheiro(int portaEnvio, String filename, int sizeFile) throws SocketException, FileNotFoundException, IOException{
+        
+        try{
+        byte[] data =new byte[sizeFile+7];
+        DatagramSocket udpAux= new DatagramSocket(portaEnvio); // conecta se com a pessoa que lhe vai mandar o ficheiro
+        FileOutputStream  FOS = new FileOutputStream(filename); // cria o ficheiro com o nome passado como argumento
+        
+        DatagramPacket pacote= new DatagramPacket(data, sizeFile+7);
+        
+       udpAux.receive(pacote); // recebe o pdu do cliente que recebe
+       
+       byte[] ficheiro = new byte[sizeFile];
+       // retiramos o cabeçalho do pdu e ficamos so com a parte referente ao ficheiro
+       for(int i =0;i<sizeFile;i++){
+       
+           ficheiro[i]=data[i+7];
+       
+       }
+       // escrevemos no ficheiro
+       FOS.write(ficheiro);
+       // fechamos o ficheiro
+       FOS.close();
+            
+        
+        
+        
+        
+        }catch(java.net.SocketException a){
+            System.out.println(a.toString());
+        }
     
     
     }

@@ -53,6 +53,9 @@ public class Interface {
                 case 2:
                     enviarFich();
                     break;
+                case 3: 
+                    consultResponse();
+                    break;
             }
         }while (menuMain.getOpcao() != 0);
     }
@@ -109,6 +112,11 @@ public class Interface {
             System.out.println("\nRegisto efectuado com sucesso");
             start();
         }
+    }
+    
+    protected void consultResponse() throws IOException{
+        c.responderPedido(c.getPdu(), c.getPortaUDP(), nome, pass);
+    
     }
     
     protected void consultReq()throws IOException{

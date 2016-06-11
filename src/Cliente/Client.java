@@ -274,4 +274,22 @@ public class Client {
     
     
     }
+
+    public int getPortaUDP() {
+        return portaUDP;
+    }
+
+    public byte[] getPdu() {
+        return pdu;
+    }
+
+    public PDU getPdu2() {
+        return pdu2;
+    }
+
+    public DatagramSocket getUdp() {
+        return udp;
+    }
+    
+   
 }

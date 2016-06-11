@@ -62,6 +62,21 @@ public class Client {
         return str;
     }
     
+    public String login(String name, String pass) throws myException, IOException {
+        byte[] pduAux = null;
+        String sResposta = "";
+        pduAux=pdu2.login(name,pass);
+        out.write(pduAux);
+        try {
+            sResposta = in.readLine();
+        } catch (IOException ex) {
+            throw new myException("Não foi possível obter resposta do servidor");
+        } finally {
+            return sResposta;
+        }
+    }
+    
+    
     public boolean response(String mensagem) throws myException {
         String[] str = mySplit(mensagem);
         //char codigo = str[2].charAt(0);

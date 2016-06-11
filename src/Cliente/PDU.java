@@ -80,6 +80,36 @@ public class PDU {
         
     }
     
+    public byte[] login(String name, String pass) {
+        ByteBuffer bb;
+
+        String aux = name + ',' + pass;
+        byte[] k = aux.getBytes();
+        int tam = 9 + k.length;
+        byte[] ret = new byte[tam];
+        byte[] aux2 = new byte[7];
+
+        bb = ByteBuffer.wrap(ret);
+
+        
+        aux2[0] = 1;
+        aux2[1] = 0;
+        aux2[2] = 0; //LOGIN
+        aux2[3] = 0;
+        aux2[4] = 0;
+        aux2[5] = 0;
+        aux2[6] = 0;
+            
+        
+        bb.put(aux2);
+        
+
+        bb.put(k);
+        
+
+        return ret;
+    }
+    
     // 0 ou 1
     public byte[] responderPedido(int resposta, String id, String ip, int portaUDP){
       ByteBuffer bb;
@@ -161,6 +191,12 @@ public class PDU {
         return ret;
     }
     
+    //porta udp vai ser envia para o cliente que vai enviar para este poder enviar para a respetiva porta
+    public byte[] pedirEnvio(int portaUDP){
+    
+    
+    }
+    
     // recebe o path para o ficheiro
     public byte[] trataFicheiro(String ficheiro) throws IOException{
         
@@ -184,6 +220,8 @@ public class PDU {
          
          data[i]=(byte)targetStream.read();
          }
+         
+         bb=ByteBuffer.wrap(data);
         
         return data;
     

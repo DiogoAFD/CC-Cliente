@@ -41,6 +41,7 @@ public class Client {
         try {
             clientSck = new Socket(ip, 2000);
             udp= new DatagramSocket(portaUDP);
+            ipCliente = clientSck.getLocalAddress().getHostAddress();
             pdu2=new PDU();
             cs=new Connect(clientSck);
         } catch (java.net.ConnectException a) {

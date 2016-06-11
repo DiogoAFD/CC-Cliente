@@ -210,7 +210,19 @@ public class Client {
     
     public void enviarFicheiro(int portdest, String filename) throws IOException{
         
+        DatagramSocket udpAux= new DatagramSocket(portdest);
+        byte[] pduAux=new PDU().trataFicheiro(filename);
+        
+        DatagramPacket pacote = new DatagramPacket(pduAux, 0, portdest);
+        
+        udpAux.send(pacote);
+        
         
        
+    }
+    
+    public void receberFicheiro(int portaEnvio, String filename, int sizeFile){
+    
+    
     }
 }

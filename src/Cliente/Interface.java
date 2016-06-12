@@ -115,7 +115,9 @@ public class Interface {
     }
     
     protected void consultResponse() throws IOException{
-        c.responderPedido(c.getPdu(), c.getPortaUDP(), nome, pass);
+        System.out.println("Insira o numero da sua porta UDP");
+        int porta=Input.lerInt();
+        c.responderPedido( porta, nome, pass);
     
     }
     
@@ -138,7 +140,13 @@ public class Interface {
     
     protected void enviarFich() throws IOException{
         
-     //  c.responderPedido(pdu, id, pass, pass);
+        System.out.println("Insira o path do ficheiro a enviar:");
+        String path=Input.lerString();
+        System.out.println("Insira a portaUDP do cliente a quem vai enviar");
+        int porta = Input.lerInt();
+        c.enviarFicheiro(porta,path);
+        
+     
     }
 
     

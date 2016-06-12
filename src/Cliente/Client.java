@@ -124,7 +124,10 @@ public class Client {
     }
     
     
-    public void responderPedido(byte[] pdu,int portaUDP,String ip,String id) throws IOException{
+    public void responderPedido(int portaUDP,String ip,String id) throws IOException{
+        
+        pdu=cs.readPDU();
+        if(pdu[2]==3){
         
         byte[] pduAux = null;
         int i;
@@ -150,7 +153,7 @@ public class Client {
         if(resp.equals("S")||resp.equals("s")) {resposta=1; pduAux=pdu2.responderPedido(resposta, id, ip, portaUDP);}
         if(resp.equals("N")||resp.equals("n")) {resposta=0;  pduAux=pdu2.responderPedido(resposta, id, ip, portaUDP);}
         
-        
+        }
         
     
     

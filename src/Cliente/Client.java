@@ -82,7 +82,7 @@ public class Client {
         String[] str = mySplit(mensagem);
         //char codigo = str[2].charAt(0);
         String codigo = str[0];
-        System.out.println("codigo"+str[0]);
+        //System.out.println("codigo"+str[0]);
         boolean resposta = false;
         switch(codigo){
             case "1":
